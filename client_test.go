@@ -160,6 +160,18 @@ func TestURL(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+func TestBroadcastURL(t *testing.T) {
+	n := mockNotification()
+	n.ChannelID = "channel123"
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		assert.Equal(t, fmt.Sprintf("/4/broadcasts/apps/%s", n.Topic), r.URL.String())
+	}))
+	defer server.Close()
+	_, err := mockClient(server.URL).Push(n)
+	assert.NoError(t, err)
+}
+
 func TestDefaultHeaders(t *testing.T) {
 	n := mockNotification()
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

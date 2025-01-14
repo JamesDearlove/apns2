@@ -171,7 +171,13 @@ func (c *Client) PushWithContext(ctx Context, n *Notification) (*Response, error
 		return nil, err
 	}
 
-	url := c.Host + "/3/device/" + n.DeviceToken
+	url := c.Host
+	if n.ChannelID != "" {
+		url = url + "/4/broadcasts/apps/" + n.Topic
+	} else {
+		url = url + "/3/device/" + n.DeviceToken
+	}
+
 	request, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(payload))
 	if err != nil {
 		return nil, err
