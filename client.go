@@ -224,6 +224,9 @@ func setHeaders(r *http.Request, n *Notification) {
 	if n.CollapseID != "" {
 		r.Header.Set("apns-collapse-id", n.CollapseID)
 	}
+	if n.ChannelID != "" {
+		r.Header.Set("apns-channel-id", n.ChannelID)		
+	}
 	if n.Priority > 0 {
 		r.Header.Set("apns-priority", strconv.Itoa(n.Priority))
 	}
