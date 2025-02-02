@@ -178,10 +178,10 @@ func (p *Payload) SetInputPushChannel(channelID string) *Payload {
 	return p
 }
 
-// SetInputPushToken sets the aps input-push-channel field on the payload.
-// This is used for push-to-start live activities for channels.
+// SetInputPushToken sets the aps input-push-token field on the payload.
+// This is used for push-to-start live activities for channels.,
 //
-//	{"aps":{"input-push-channel": channelID }}`
+//	{"aps":{"input-push-token": channelID }}`
 func (p *Payload) SetInputPushToken(token int) *Payload {
 	p.aps().InputPushToken = token
 	return p
